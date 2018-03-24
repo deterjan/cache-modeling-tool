@@ -8,7 +8,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <title>cs224</title>
+        <title>CS224 Cache Modeling Tool</title>
 
     </head>
 
@@ -110,17 +110,17 @@
                                             aria-haspopup="true" aria-expanded="false">
                                         Addressable Unit Size
                                     </button>
-                                    <div class="dropdown-menu" id="addressableUnitDropdowm">
-                                        <a class="dropdown-item active" href="#" id="byteAddr">Byte Addressable</a>
-                                        <a class="dropdown-item" href="#" id="hwAddr">Half Word Addressable</a>
-                                        <a class="dropdown-item" href="#" id="wordAddr">Word Addressable</a>
+                                    <div class="dropdown-menu" id="addressableUnitDropdown">
+                                        <a class="dropdown-item active" href="#" id="byteAddr" onclick="chooseByteAddressable()">Byte Addressable</a>
+                                        <a class="dropdown-item" href="#" id="hwAddr" onclick="chooseHalfwordAddressable()">Half Word Addressable</a>
+                                        <a class="dropdown-item" href="#" id="wordAddr" onclick="chooseWordAddressable()">Word Addressable</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="text-center">
-                            <button type="button" class="btn btn-info" id="modelButton" onclick="modelButtonFunction()">Model Cache</button>
+                            <button type="button" class="btn btn-info" id="modelButton" onclick="onModelButtonClicked()">Model Cache</button>
                         </div>
 
                     </div>
@@ -130,7 +130,7 @@
     </div>
 
     <div class="container">
-        <label class="mb-1 mt-3" id="lengthLabel">Address format length: </label>
+        <label class="mb-1 mt-1" id="lengthLabel">Address format length: </label>
         <div class="progress" style="height: 30px">
             <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 30px" id="tagBits"></div>
             <div class="progress-bar bg-success" role="progressbar" style="width: 0%; height: 30px" id="indexBits"></div>

@@ -1,6 +1,9 @@
 const NOT_GIVEN = -1;
 const NOT_CALCULATED = -2;
 
+var currentModel;
+var addressableUnit = "Byte";
+
 function log2(x) {
     return Math.ceil(Math.log(x) / Math.log(2));
 }
@@ -192,21 +195,35 @@ function mapBitsToProgressBar() {
     document.getElementById("blockOffsetBits").innerText = makeProgressBarLabel("Block Offset", currentModel.blockOffsetLength);
     document.getElementById("blockOffsetBits").style.width = blockOffsetPercent + "%";
 
-    // TODO get unit name from dropdown
-    var unitName = "Byte";
-    document.getElementById("addrUnitBits").innerText = makeProgressBarLabel(unitName + " Offset", currentModel.unitOffsetLength);
+    document.getElementById("addrUnitBits").innerText = makeProgressBarLabel(addressableUnit + " Offset", currentModel.unitOffsetLength);
     document.getElementById("addrUnitBits").style.width = unitOffsetPercent + "%";
 }
 
-function assert(cond, msg) {
-    if (!cond) {
-        throw new Error(msg);
-    }
+function chooseByteAddressable() {
+    addressableUnit = "Byte";
+
+    document.getElementById("byteAddr").classList.add("active");
+    document.getElementById("wordAddr").classList.remove("active");
+    document.getElementById("hwAddr").classList.remove("active");
 }
 
-var currentModel;
+function chooseHalfwordAddressable() {
+    addressableUnit = "Halfword";
 
-function modelButtonFunction() {
+    document.getElementById("byteAddr").classList.remove("active");
+    document.getElementById("wordAddr").classList.remove("active");
+    document.getElementById("hwAddr").classList.add("active");
+}
+
+function chooseWordAddressable() {
+    addressableUnit = "Word";
+
+    document.getElementById("byteAddr").classList.remove("active");
+    document.getElementById("wordAddr").classList.add("active");
+    document.getElementById("hwAddr").classList.remove("active");
+}
+
+function onModelButtonClicked() {
     currentModel = new CacheModel();
 
     // TODO add byte unit dropdowns to some inputs
@@ -229,8 +246,12 @@ function modelButtonFunction() {
 
     currentModel.wordSizeInBytes = document.getElementById("wordSizeInput").value;
 
-    // TODO wire the dropdown
-    currentModel.addressableUnitSizeInBytes = 1;
+    if (addressableUnit === "Halfword")
+        currentModel.addressableUnitSizeInBytes = currentModel.wordSizeInBytes / 2;
+    else if (addressableUnit === "Word")
+        currentModel.addressableUnitSizeInBytes = currentModel.wordSizeInBytes;
+    else
+        currentModel.addressableUnitSizeInBytes = 1;
 
     currentModel.model();
 
@@ -245,6 +266,14 @@ function modelButtonFunction() {
     }
 
     currentModel.reset();
+}
+
+// BEWARE TESTS LURK DOWN BELOW
+
+function assert(cond, msg) {
+    if (!cond) {
+        throw new Error(msg);
+    }
 }
 
 function test() {
@@ -569,8 +598,6 @@ function test() {
     assert(model12.indexLength === 8, "model12 block offset failed");
     assert(model12.tagLength === 13, "model12 tag failed");
 
-    console.log("All tests passed!");
-
     /*
     Question 4 (Retake Spring 2016) Cache Modeling
 
@@ -579,7 +606,7 @@ function test() {
         Explain the address format used to access this cache in a 16-bit processor.
 
         (WRONG IN SOLUTION IN SOLVED PROBLEMS DOCUMENT;
-         words are given as 2 bytes, but the calculation is done as if they are 4 bytes)
+         words are given as 2 bytes, but the format length calculation is done as if they are 4 bytes)
      */
     var model13 = new CacheModel();
 
@@ -598,4 +625,5 @@ function test() {
     assert(model13.indexLength === 6, "model13 block offset failed");
     assert(model13.tagLength === 9, "model13 tag failed");
 
+    console.log("All tests passed!");
 }
