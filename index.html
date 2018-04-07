@@ -16,15 +16,15 @@
 <body>
 <div class="float-right">
     <button type="button" onclick="onExampleButtonClicked()" class="btn-sm btn-outline-success mr-3">Example</button>
+    <button type="button" onclick="onClearButtonClicked()" class="btn-sm btn-outline-danger mr-3">Clear</button>
 </div>
 
 <div class="container mb-4">
     <h1 class="well text-center mb-3 mt-3">Cache Modeling Tool</h1>
     <form>
             <div class="col">
-                <!-- first row -->
                 <div class="row">
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-4">
                         <label class="form-text-inline">Cache Capacity:</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="cacheCapacityInput">
@@ -33,11 +33,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2 form-group">
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
                         <label class="form-text-inline"># of Blocks:</label>
                         <input type="text" class="form-control" id="numOfBlocksInput">
                     </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-4">
                         <label class="form-text-inline">Block Size:</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="blockSizeInput">
@@ -48,11 +51,10 @@
                     </div>
                     <div class="form-group col-sm-4">
                         <label class="form-text">&nbsp</label>
-                        <label class="form-text">Leave 1 of the 3 boxes in this line empty.</label>
+                        <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
                     </div>
                 </div>
 
-                <!-- second row -->
                 <div class="row">
                     <div class="form-group col-sm-4">
                         <label class="form-text-inline"># of Ways:</label>
@@ -70,7 +72,6 @@
                     </div>
                 </div>
 
-                <!-- third row -->
                 <div class="row">
                     <div class="form-group col-sm-4">
                         <label class="form-text-inline">Main Memory Capacity:</label>
@@ -91,7 +92,6 @@
                     </div>
                 </div>
 
-                <!-- fourth row -->
                 <div class="row">
                     <div class="form-group col-sm-4">
                         <label class="form-text-inline">Word Size:</label>
@@ -104,7 +104,6 @@
                     </div>
                 </div>
 
-                <!-- fifth row -->
                 <div class="row">
                     <div class="form-group col-sm-12">
                         <div class="dropdown">
@@ -145,12 +144,15 @@
     </div>
 </div>
 
+<!--
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+-->
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>

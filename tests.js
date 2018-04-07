@@ -5,6 +5,8 @@ function assert(cond, msg) {
     }
 }
 
+// TODO Could put test cases into JSON objects...
+
 function runTests() {
     console.log("Testing...");
 

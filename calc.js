@@ -12,8 +12,9 @@ function CacheModel() {
     // Whether info stored in model is valid
     this.isValid = false;
 
-    // Block info
     this.capacityInBytes = NOT_GIVEN;       // C
+
+    // Block info
     this.numOfBlocks = NOT_GIVEN;           // B
     this.blockSizeInBytes = NOT_GIVEN;      // b
 
@@ -36,22 +37,28 @@ function CacheModel() {
     this.indexLength = NOT_CALCULATED;
 
     CacheModel.prototype.model = function() {
-        var sufficientInfo = true;
+        this.isValid = true;
 
-        if (!this.checkBlocksDefined()) {
-            sufficientInfo = false;
+        if (this.capacityInBytes === NOT_GIVEN) {
+            this.isValid = false;
         }
-        if (!this.checkSetsDefined()) {
-            sufficientInfo = false;
+        if (this.numOfBlocks === NOT_GIVEN && this.blockSizeInBytes === NOT_GIVEN) {
+            this.isValid = false;
         }
-        if (this.wordSizeInBytes === NOT_GIVEN) {
-            sufficientInfo = false;
+        if (this.numOfSets === NOT_GIVEN && this.numOfWays === NOT_GIVEN) {
+            this.isValid = false;
         }
         if (this.addressFormatLength === NOT_GIVEN && this.mainMemSizeInBytes === NOT_GIVEN) {
-            sufficientInfo = false;
+            this.isValid = false;
+        }
+        if (this.wordSizeInBytes === NOT_GIVEN) {
+            this.isValid = false;
+        }
+        if (this.addressableUnitSizeInBytes === NOT_GIVEN) {
+            this.isValid = false;
         }
 
-        if (sufficientInfo) {
+        if (this.isValid) {
             this.calculateBlocks();
             this.calculateSets();
 
@@ -64,28 +71,10 @@ function CacheModel() {
 
             this.calculateAddressFormat();
         }
-
-        this.isValid = sufficientInfo;
-    };
-
-    CacheModel.prototype.checkBlocksDefined = function() {
-        var a = this.capacityInBytes !== NOT_GIVEN;
-        var b = this.numOfBlocks !== NOT_GIVEN;
-        var c = this.blockSizeInBytes !== NOT_GIVEN;
-        return a && (b || c) || (b && c);
-    };
-
-    CacheModel.prototype.checkSetsDefined = function() {
-        var a = this.numOfSets !== NOT_GIVEN;
-        var b = this.numOfWays !== NOT_GIVEN;
-        return a || b;
     };
 
     CacheModel.prototype.calculateBlocks = function() {
-        if (this.capacityInBytes === NOT_GIVEN) {
-            this.capacityInBytes = this.numOfBlocks * this.blockSizeInBytes;
-        }
-        else if (this.numOfBlocks === NOT_GIVEN) {
+        if (this.numOfBlocks === NOT_GIVEN) {
             this.numOfBlocks = this.capacityInBytes / this.blockSizeInBytes;
         }
         else {
@@ -127,27 +116,11 @@ function CacheModel() {
             console.log("index: " + this.indexLength);
             console.log("tag: " + this.tagLength);
     };
-
-    CacheModel.prototype.reset = function () {
-        this.isValid = false;
-        this.capacityInBytes = NOT_GIVEN;
-        this.numOfBlocks = NOT_GIVEN;
-        this.blockSizeInBytes = NOT_GIVEN;
-        this.numOfWays = NOT_GIVEN;
-        this.numOfSets = NOT_GIVEN;
-        this.mainMemSizeInBytes = NOT_GIVEN;
-        this.addressFormatLength = NOT_GIVEN;
-        this.wordSizeInBytes = NOT_GIVEN;
-        this.addressableUnitSizeInBytes = NOT_GIVEN;
-        this.unitOffsetLength = NOT_CALCULATED;
-        this.blockOffsetLength = NOT_CALCULATED;
-        this.indexLength = NOT_CALCULATED;
-    };
 }
 
 // Update input bars according to values in model
 function refillInputs() {
-    // TODO these will also need to reflect byte unit dropdowns (or refresh to bytes?)
+    // TODO inputs will also need to reflect unit dropdowns (or refresh to bytes?)
     document.getElementById("cacheCapacityInput").value = currentModel.capacityInBytes;
     document.getElementById("numOfBlocksInput").value = currentModel.numOfBlocks;
     document.getElementById("blockSizeInput").value = currentModel.blockSizeInBytes;
@@ -156,6 +129,17 @@ function refillInputs() {
     document.getElementById("mainMemorySizeInput").value = currentModel.mainMemSizeInBytes;
     document.getElementById("addressBitsInput").value = currentModel.addressFormatLength;
     document.getElementById("wordSizeInput").value = currentModel.wordSizeInBytes;
+}
+
+function clearInputs() {
+    document.getElementById("cacheCapacityInput").value = "";
+    document.getElementById("numOfBlocksInput").value = "";
+    document.getElementById("blockSizeInput").value = "";
+    document.getElementById("numOfWaysInput").value = "";
+    document.getElementById("numOfSetsInput").value = "";
+    document.getElementById("mainMemorySizeInput").value = "";
+    document.getElementById("addressBitsInput").value = "";
+    document.getElementById("wordSizeInput").value = "";
 }
 
 // Generate label string for progress bar piece
@@ -202,6 +186,20 @@ function mapBitsToProgressBar() {
     document.getElementById("addrUnitBits").style.width = unitOffsetPercent + "%";
 }
 
+function clearProgressBar() {
+    document.getElementById("tagBits").innerText = "";
+    document.getElementById("tagBits").style.width = "0%";
+
+    document.getElementById("indexBits").innerText = "";
+    document.getElementById("indexBits").style.width = "0%";
+
+    document.getElementById("blockOffsetBits").innerText = "";
+    document.getElementById("blockOffsetBits").style.width = "0%";
+
+    document.getElementById("addrUnitBits").innerText = "";
+    document.getElementById("addrUnitBits").style.width = "0%";
+}
+
 // Adressable unit dropdown methods
 function chooseByteAddressable() {
     addressableUnit = "Byte";
@@ -227,11 +225,19 @@ function chooseWordAddressable() {
     document.getElementById("hwAddr").classList.remove("active");
 }
 
+function clearEverything() {
+    currentModel = new CacheModel();
+    clearInputs();
+    chooseByteAddressable();
+    clearProgressBar();
+    document.getElementById("lengthLabel").innerText = "Address format length: ";
+}
+
 // Render page if input is valid
 function onModelButtonClicked() {
     currentModel = new CacheModel();
 
-    // TODO add byte unit dropdowns to some inputs
+    // TODO add unit dropdowns to some inputs
     var temp = document.getElementById("cacheCapacityInput").value;
     currentModel.capacityInBytes = temp === "" ? NOT_GIVEN : temp;
     temp = document.getElementById("numOfBlocksInput").value;
@@ -249,7 +255,8 @@ function onModelButtonClicked() {
     temp = document.getElementById("addressBitsInput").value;
     currentModel.addressFormatLength = temp === "" ? NOT_GIVEN : temp;
 
-    currentModel.wordSizeInBytes = document.getElementById("wordSizeInput").value;
+    temp = document.getElementById("wordSizeInput").value;
+    currentModel.wordSizeInBytes = temp === "" ? NOT_GIVEN : temp;
 
     if (addressableUnit === "Halfword")
         currentModel.addressableUnitSizeInBytes = currentModel.wordSizeInBytes / 2;
@@ -268,12 +275,18 @@ function onModelButtonClicked() {
     else {
         // TODO ensure validity of result (Check for minus values?)
         alert("Invalid parameters");
+        document.getElementById("lengthLabel").innerText = "Address format length: ";
+        clearProgressBar();
     }
+}
 
-    currentModel.reset();
+function onClearButtonClicked() {
+    clearEverything();
 }
 
 function onExampleButtonClicked() {
+    clearEverything();
+
     document.getElementById("cacheCapacityInput").value = 1024;
     document.getElementById("blockSizeInput").value = 8;
     document.getElementById("numOfWaysInput").value = 4;
