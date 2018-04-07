@@ -9,7 +9,8 @@ I hope it does. You can find a list of test cases from Will Sawyer's previously 
 [this file](https://github.com/deterjan/cache-modeling-tool/blob/gh-pages/tests.js)
 and run all of these cases to make sure the code is OK
 [here.](https://deterjan.github.io/cache-modeling-tool/tests.html)
-Use this tool at your own risk. If find any bugs, feel free to open an issue or submit a pull request.
+
+__Use this tool at your own risk.__ If find any bugs, feel free to open an issue or submit a pull request.
 
 ## Possible extensions
 * Add unit dropdowns (KB, MB etc.)
