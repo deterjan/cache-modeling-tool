@@ -145,6 +145,7 @@ function CacheModel() {
     };
 }
 
+// Update input bars according to values in model
 function refillInputs() {
     // TODO these will also need to reflect byte unit dropdowns (or refresh to bytes?)
     document.getElementById("cacheCapacityInput").value = currentModel.capacityInBytes;
@@ -157,6 +158,7 @@ function refillInputs() {
     document.getElementById("wordSizeInput").value = currentModel.wordSizeInBytes;
 }
 
+// Generate label string for progress bar piece
 function makeProgressBarLabel(name, length) {
     if (length <= 0)
         return "";
@@ -170,6 +172,7 @@ function makeProgressBarLabel(name, length) {
     return label;
 }
 
+// Adjust progress bar piece sizes and put on labels
 function mapBitsToProgressBar() {
     var unitOffsetPercent = 100 * currentModel.unitOffsetLength / currentModel.addressFormatLength;
     if (unitOffsetPercent < 15 && unitOffsetPercent !== 0)
@@ -199,6 +202,7 @@ function mapBitsToProgressBar() {
     document.getElementById("addrUnitBits").style.width = unitOffsetPercent + "%";
 }
 
+// Adressable unit dropdown methods
 function chooseByteAddressable() {
     addressableUnit = "Byte";
 
@@ -223,6 +227,7 @@ function chooseWordAddressable() {
     document.getElementById("hwAddr").classList.remove("active");
 }
 
+// Render page if input is valid
 function onModelButtonClicked() {
     currentModel = new CacheModel();
 
@@ -266,4 +271,13 @@ function onModelButtonClicked() {
     }
 
     currentModel.reset();
+}
+
+function onExampleButtonClicked() {
+    document.getElementById("cacheCapacityInput").value = 1024;
+    document.getElementById("blockSizeInput").value = 8;
+    document.getElementById("numOfWaysInput").value = 4;
+    document.getElementById("mainMemorySizeInput").value = 65536;
+    document.getElementById("wordSizeInput").value = 4;
+    chooseByteAddressable();
 }
