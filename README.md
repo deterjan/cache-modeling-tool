@@ -5,7 +5,7 @@ Simple Javascript tool to solve cache modeling problems from CS224.
 The tool can be accessed publicly at: https://deterjan.github.io/cache-modeling-tool/
 
 ## Does it work?
-I hope it does. You can find a list of test cases from Will Sawyer's previously solved questions in 
+I hope it does. You can find a list of test cases obtained from the previously asked questions archive in 
 [this file](https://github.com/deterjan/cache-modeling-tool/blob/gh-pages/tests.js)
 and run all of these cases to make sure the code is OK
 [here.](https://deterjan.github.io/cache-modeling-tool/tests.html)
