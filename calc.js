@@ -62,11 +62,11 @@ function CacheModel() {
             this.calculateBlocks();
             this.calculateSets();
 
-            if (this.addressFormatLength === NOT_GIVEN) {
-                this.addressFormatLength = log2(this.mainMemSizeInBytes / this.addressableUnitSizeInBytes);
+            if (this.mainMemSizeInBytes === NOT_GIVEN) {
+                this.mainMemSizeInBytes = Math.pow(2, this.addressFormatLength * this.addressableUnitSizeInBytes);
             }
             else {
-                this.mainMemSizeInBytes = Math.pow(2, this.addressFormatLength * this.addressableUnitSizeInBytes);
+                this.addressFormatLength = log2(this.mainMemSizeInBytes / this.addressableUnitSizeInBytes);
             }
 
             this.calculateAddressFormat();
