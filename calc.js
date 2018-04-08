@@ -238,6 +238,8 @@ function onModelButtonClicked() {
     currentModel = new CacheModel();
 
     // TODO add unit dropdowns to some inputs
+    // TODO refactor value extractions to new method
+    // TODO validate input: valid number, positive etc
     var temp = document.getElementById("cacheCapacityInput").value;
     currentModel.capacityInBytes = temp === "" ? NOT_GIVEN : temp;
     temp = document.getElementById("numOfBlocksInput").value;
@@ -273,7 +275,6 @@ function onModelButtonClicked() {
         mapBitsToProgressBar();
     }
     else {
-        // TODO ensure validity of result (Check for minus values?)
         alert("Invalid parameters");
         document.getElementById("lengthLabel").innerText = "Address format length: ";
         clearProgressBar();
