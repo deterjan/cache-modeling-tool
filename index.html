@@ -22,115 +22,111 @@
 <div class="container mb-4">
     <h1 class="well text-center mb-3 mt-3">Cache Modeling Tool</h1>
     <form>
-            <div class="col">
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label class="form-text-inline">Cache Capacity:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="cacheCapacityInput">
-                            <div class="input-group-append">
-                                <span class="input-group-text">bytes</span>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline">Cache Capacity:</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="cacheCapacityInput">
+                    <div class="input-group-append">
+                        <span class="input-group-text">bytes</span>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-4 form-group">
-                        <label class="form-text-inline"># of Blocks:</label>
-                        <input type="text" class="form-control" id="numOfBlocksInput">
-                    </div>
-                    <div class="form-group col-sm-4">
-                        <label class="form-text-inline">Block Size:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="blockSizeInput">
-                            <div class="input-group-append">
-                                <span class="input-group-text">bytes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-4">
-                        <label class="form-text">&nbsp</label>
-                        <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label class="form-text-inline"># of Ways:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="numOfWaysInput">
-                        </div>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label class="form-text-inline"># of Sets:</label>
-                        <input type="text" class="form-control" id="numOfSetsInput">
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label class="form-text">&nbsp</label>
-                        <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label class="form-text-inline">Main Memory Capacity:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="mainMemorySizeInput">
-                            <div class="input-group-append">
-                                <span class="input-group-text">bytes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label class="form-text-inline"># of Main Memory Address Bits:</label>
-                        <input type="text" class="form-control" id="addressBitsInput">
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label class="form-text">&nbsp</label>
-                        <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label class="form-text-inline">Word Size:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="wordSizeInput">
-                            <div class="input-group-append">
-                                <span class="input-group-text">bytes</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Addressable Unit Size
-                            </button>
-                            <div class="dropdown-menu" id="addressableUnitDropdown">
-                                <a class="dropdown-item active" href="#" id="byteAddr"
-                                   onclick="chooseByteAddressable()">Byte Addressable</a>
-                                <a class="dropdown-item" href="#" id="hwAddr" onclick="chooseHalfwordAddressable()">Half
-                                    Word Addressable</a>
-                                <a class="dropdown-item" href="#" id="wordAddr" onclick="chooseWordAddressable()">Word
-                                    Addressable</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <button type="button" class="btn btn-info" id="modelButton" onclick="onModelButtonClicked()">
-                        Model Cache
-                    </button>
                 </div>
             </div>
-        </form>
+
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline">Word Size:</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="wordSizeInput">
+                    <div class="input-group-append">
+                        <span class="input-group-text">bytes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline">&nbsp</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Addressable Unit Size
+                    </button>
+                    <div class="dropdown-menu" id="addressableUnitDropdown">
+                        <a class="dropdown-item active" href="#" id="byteAddr"
+                           onclick="chooseByteAddressable()">Byte Addressable</a>
+                        <a class="dropdown-item" href="#" id="hwAddr" onclick="chooseHalfwordAddressable()">Half
+                            Word Addressable</a>
+                        <a class="dropdown-item" href="#" id="wordAddr" onclick="chooseWordAddressable()">Word
+                            Addressable</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label class="form-text-inline"># of Blocks:</label>
+                <input type="text" class="form-control" id="numOfBlocksInput">
+            </div>
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline">Block Size:</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="blockSizeInput">
+                    <div class="input-group-append">
+                        <span class="input-group-text">bytes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label class="form-text">&nbsp</label>
+                <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline"># of Ways:</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="numOfWaysInput">
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-text-inline"># of Sets:</label>
+                <input type="text" class="form-control" id="numOfSetsInput">
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-text">&nbsp</label>
+                <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label class="form-text-inline">Main Memory Capacity:</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="mainMemorySizeInput">
+                    <div class="input-group-append">
+                        <span class="input-group-text">bytes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-text-inline"># of Main Memory Address Bits:</label>
+                <input type="text" class="form-control" id="addressBitsInput">
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="form-text">&nbsp</label>
+                <label class="form-text">Leave 1 of the 2 boxes in this line empty.</label>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-info" id="modelButton" onclick="onModelButtonClicked()">
+                Model Cache
+            </button>
+        </div>
+    </form>
 </div>
 
 <div class="container">
