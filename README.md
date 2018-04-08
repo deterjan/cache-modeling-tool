@@ -10,7 +10,7 @@ I hope it does. You can find a list of test cases obtained from the previously a
 and run all of these cases to make sure the code is OK
 [here.](https://deterjan.github.io/cache-modeling-tool/tests.html)
 
-__Use this tool at your own risk.__ If find any bugs, feel free to open an issue or submit a pull request.
+__Use this tool at your own risk.__ If you find any bugs, feel free to open an issue or submit a pull request.
 
 ## Possible extensions
 * Add unit dropdowns (KB, MB etc.)
